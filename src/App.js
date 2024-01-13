@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import Component from "./allComponent/component1/Component";
+import Component2 from "./allComponent/component2/Component2";
+import Button from "./allComponent/button/Button";
+import Example from "./allComponent/Example";
+import Header from "./allComponent/header/Header";
+import Footer from "./allComponent/footer/Footer";
 
+import User from "./allComponent/user/User";
 function App() {
+
+  const navbar = ['Главная ', "О нас", "Контакты"]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello React World!</h1>
+        <Header navbar = {navbar}/>
+        <Component text = {'Ayana'}/>
+        <Component2 age = { 21 }/>
+        <Button text={'Delete'}/>
+        <Button text={'Add'}/>
+        <Button text={'Update'}/>
+        <Example>
+          <p style={{
+            color: "green",
+            fontSize: "20px"
+          }}>
+            Ayana
+          </p>
+        </Example>
+        <Footer link={'online.geeks.kg/'}/>
+        <User name={"Ayana Ibraeva "}>
+          <p>From now on my work begins</p>
+          <img src="https://alfa-turizm.hazirsite.pro/wsx_resimler/kapadokya-iz-alanii/ekskursiya-v-kappadokiyu-iz-alanii-2.jpeg" alt=""/>
+          <p>One of the most beautiful places in Turkey!</p>
+        </User>
     </div>
   );
 }
