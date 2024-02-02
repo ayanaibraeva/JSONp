@@ -1,38 +1,30 @@
-import Component from "./allComponent/component1/Component";
-import Component2 from "./allComponent/component2/Component2";
-import Button from "./allComponent/button/Button";
-import Example from "./allComponent/Example";
-import Header from "./allComponent/header/Header";
-import Footer from "./allComponent/footer/Footer";
+import {useEffect, useState} from "react";
+import {getData} from "./api/api";
+import {BtnList} from "./utils/BtnList";
+import Button from "./components/buttons/Button";
+import {Loader} from "./components/loader/Loader";
+import Card from "./components/card/Card";
 
-import User from "./allComponent/user/User";
 function App() {
 
-  const navbar = ['Главная ', "О нас", "Контакты"]
+  const [route, setRoute] = useState("posts")
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    getData(route)
+        .then(res => setData(res))
+  }, [route]);
 
   return (
     <div>
-      <h1>Hello React World!</h1>
-        <Header navbar = {navbar}/>
-        <Component text = {'Ayana'}/>
-        <Component2 age = { 21 }/>
-        <Button text={'Delete'}/>
-        <Button text={'Add'}/>
-        <Button text={'Update'}/>
-        <Example>
-          <p style={{
-            color: "green",
-            fontSize: "20px"
-          }}>
-            Ayana
-          </p>
-        </Example>
-        <Footer link={'online.geeks.kg/'}/>
-        <User name={"Ayana Ibraeva "}>
-          <p>From now on my work begins</p>
-          <img src="https://alfa-turizm.hazirsite.pro/wsx_resimler/kapadokya-iz-alanii/ekskursiya-v-kappadokiyu-iz-alanii-2.jpeg" alt=""/>
-          <p>One of the most beautiful places in Turkey!</p>
-        </User>
+      {BtnList.map(item =>  <Button key={item.id} onClick={() => setRoute(item.route)} text={item.caption} />)}
+
+      {!data && <Loader/>}
+
+      {data?.length === 0 && <h1>Empty</h1>}
+
+      {data?.map(item => <Card key={item.id} base={item}/>)}
+
     </div>
   );
 }
